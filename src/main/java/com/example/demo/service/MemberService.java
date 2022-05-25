@@ -19,9 +19,19 @@ public class MemberService {
 		if(oldmember!=null) {
 			return -1;
 		}
+		//이름 + 이메일 중복체크
+		oldmember=getMemberByNameAndEmail(name,email);
+		
+		if(oldmember!=null) {
+			return -2;
+		}
 		
 		memberRepository.join(loginId,loginPw,name,nickname,cellphoneNo,email);
 		return memberRepository.getLastInsertId();
+	}
+
+	private Member getMemberByNameAndEmail(String name, String email) {
+		return memberRepository.getMemberByNameAndEmail(name,email);
 	}
 
 	private Member getMemberByLoginId(String loginId) {

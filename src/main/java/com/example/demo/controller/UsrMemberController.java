@@ -16,7 +16,7 @@ public class UsrMemberController {
 		this.memberService=memberService;
 	}
 	
-	@RequestMapping("/usr/article/doJoin")
+	@RequestMapping("/usr/member/doJoin")
 	@ResponseBody
 	public Object doJoin(String loginId,String loginPw,String name,String nickname,String cellphoneNo,String email) {
 		if(Ut.empty(loginId)) {
@@ -47,6 +47,10 @@ public class UsrMemberController {
 		
 		if(id==-1) {
 			return "해당 로그인아이디는 이미 사용중입니다.";
+		}
+		
+		if(id==-2) {
+			return "해당 이름과 이메일은 이미 사용중입니다.";
 		}
 		
 		Member member=memberService.getMemberById(id);
