@@ -1,5 +1,7 @@
 package com.example.demo.util;
 
+import com.example.demo.vo.Member;
+
 import lombok.Getter;
 
 public class ResultData {
@@ -33,5 +35,9 @@ public class ResultData {
 	
 	public boolean isFail() {
 		return isSuccess()==false;
+	}
+
+	public static ResultData newData(ResultData rd, Object newData) {
+		return from(rd.getResultCode(),rd.getMsg(),newData);
 	}
 }

@@ -34,14 +34,15 @@ public class UsrArticleController {
 		
 		Article article=articleService.getArticle(id);
 		
-		return ResultData.from(writeArticleRd.getResultCode(), writeArticleRd.getMsg(),article);
+		return ResultData.newData(writeArticleRd, article);
 	}
 	
 
 	@RequestMapping("/usr/article/getArticles")
 	@ResponseBody
-	public List<Article> getArticles() {
-		return articleService.getArticles();
+	public ResultData getArticles() {
+		List<Article> articles= articleService.getArticles();
+		return ResultData.from("S-1", "게시물 리스트 입니다.", articles);
 	}
 	
 	@RequestMapping("/usr/article/getArticle")
