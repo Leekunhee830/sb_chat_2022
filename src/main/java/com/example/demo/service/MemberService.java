@@ -15,7 +15,7 @@ public class MemberService {
 		this.memberRepository=memberRepository;
 	}
 	
-	public ResultData join(String loginId, String loginPw, String name, String nickname, String cellphoneNo, String email) {
+	public ResultData<Integer> join(String loginId, String loginPw, String name, String nickname, String cellphoneNo, String email) {
 		Member oldmember=getMemberByLoginId(loginId);
 		
 		if(oldmember!=null) {
@@ -38,12 +38,13 @@ public class MemberService {
 		return memberRepository.getMemberByNameAndEmail(name,email);
 	}
 
-	private Member getMemberByLoginId(String loginId) {
+	public Member getMemberByLoginId(String loginId) {
 		return memberRepository.getMemberByLoginId(loginId);
 	}
 
 	public Member getMemberById(int id) {
 		return memberRepository.getMemberById(id);
 	}
+
 
 }
