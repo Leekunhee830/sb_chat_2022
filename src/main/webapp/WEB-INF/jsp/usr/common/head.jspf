@@ -6,6 +6,17 @@
 <head>
 <meta charset="UTF-8">
 <title>${pageTitle}</title>
+
+<!-- 제이쿼리 -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+<!-- 테일윈드 -->
+<!-- 노말라이즈, 라이브러리까지 한방에 해결 -->
+<script src="https://unpkg.com/tailwindcss-jit-cdn"></script>
+
+<!-- 폰트어썸  -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+
 <link rel="stylesheet" href="/resource/common.css"/>
 </head>
 <body>
