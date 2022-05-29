@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>메인</title>
+<link rel="stylesheet" href="/resource/common.css"/>
 </head>
 <body>
   <h1>게시물 리스트 페이지</h1>
