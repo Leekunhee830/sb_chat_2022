@@ -8,12 +8,6 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class MainController {
 
-	@RequestMapping("/usr/home/main")
-	@ResponseBody
-	public String showMain() {
-		return "안녕하세요.";
-	}
-	
 	@RequestMapping("/chat")
 	public ModelAndView chat() {
 		ModelAndView mv=new ModelAndView();
