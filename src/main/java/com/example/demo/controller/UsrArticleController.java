@@ -64,6 +64,16 @@ public class UsrArticleController {
 		return "usr/article/list";
 	}
 	
+	@RequestMapping("/usr/article/detail")
+	public String showdetail(Model model,int id) {
+		Article article=articleService.getArticle(id);
+		ResultData.from("S-1", Ut.f("%d번 게시물입니다.", id),"article", article);
+		
+		model.addAttribute("article",article);
+		
+		return "usr/article/detail";
+	}
+	
 	@RequestMapping("/usr/article/getArticle")
 	@ResponseBody
 	public ResultData getArticle(int id) {
