@@ -11,7 +11,7 @@
 		`body` = #{body}
 	</insert>
 
-	<select id="getArticles" resultType="Article">
+	<select id="getForPrintArticles" resultType="Article">
 		SELECT A.*,M.nickname AS extra__writerName
 		FROM article AS A
 		LEFT JOIN member AS M
@@ -20,11 +20,13 @@
 		id DESC
 	</select>
 
-	<select id="getArticle" resultType="Article">
-		SELECT *
-		FROM article
+	<select id="getForPrintArticle" resultType="Article">
+		SELECT A.*,M.nickname AS extra__writerName
+		FROM article AS A
+		LEFT JOIN member AS M
+		ON A.memberId=M.id
 		WHERE 1
-		AND id = #{id}
+		AND A.id = #{id}
 	</select>
 
 	<select id="getLastInsertId" resultType="int">
