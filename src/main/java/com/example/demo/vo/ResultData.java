@@ -1,6 +1,4 @@
-package com.example.demo.util;
-
-import com.example.demo.vo.Member;
+package com.example.demo.vo;
 
 import lombok.Getter;
 

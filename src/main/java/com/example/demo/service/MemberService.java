@@ -3,9 +3,9 @@ package com.example.demo.service;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.repository.MemberRepository;
-import com.example.demo.util.ResultData;
 import com.example.demo.util.Ut;
 import com.example.demo.vo.Member;
+import com.example.demo.vo.ResultData;
 
 @Service
 public class MemberService {

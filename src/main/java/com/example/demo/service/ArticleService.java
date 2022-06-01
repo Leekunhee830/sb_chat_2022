@@ -3,9 +3,9 @@ package com.example.demo.service;
 import java.util.List;
 import org.springframework.stereotype.Service;
 import com.example.demo.repository.ArticleRepository;
-import com.example.demo.util.ResultData;
 import com.example.demo.util.Ut;
 import com.example.demo.vo.Article;
+import com.example.demo.vo.ResultData;
 
 @Service
 public class ArticleService {
