@@ -26,7 +26,7 @@ public class UsrArticleController {
 	@RequestMapping("/usr/article/doAdd")
 	@ResponseBody
 	public ResultData doAdd(HttpServletRequest req,String title,String body) {
-		Rq rq=new Rq(req);
+		Rq rq=(Rq)req.getAttribute("rq");
 		
 		if(rq.isLogined()==false) {
 			return ResultData.from("F-A", "로그인 후 이용해주세요.");
@@ -52,7 +52,7 @@ public class UsrArticleController {
 
 	@RequestMapping("/usr/article/list")
 	public String showList(Model model, HttpServletRequest req) {
-		Rq rq=new Rq(req);
+		Rq rq=(Rq)req.getAttribute("rq");
 		
 		List<Article> articles= articleService.getForPrintArticles(rq.getLoginedMemberId());
 		ResultData.from("S-1", "게시물 리스트 입니다.","articles", articles);
@@ -64,7 +64,7 @@ public class UsrArticleController {
 	
 	@RequestMapping("/usr/article/detail")
 	public String showdetail(Model model,int id,HttpServletRequest req) {
-		Rq rq=new Rq(req);
+		Rq rq=(Rq)req.getAttribute("rq");
 		
 		Article article=articleService.getForPrintArticle(rq.getLoginedMemberId(),id);
 		ResultData.from("S-1", Ut.f("%d번 게시물입니다.", id),"article", article);
@@ -77,7 +77,7 @@ public class UsrArticleController {
 	@RequestMapping("/usr/article/getArticle")
 	@ResponseBody
 	public ResultData getArticle(int id,HttpServletRequest req) {
-		Rq rq=new Rq(req);
+		Rq rq=(Rq)req.getAttribute("rq");
 		
 		Article article=articleService.getForPrintArticle(rq.getLoginedMemberId(),id);
 		
@@ -91,7 +91,7 @@ public class UsrArticleController {
 	@RequestMapping("/usr/article/doDelete")
 	@ResponseBody
 	public String doDelete(HttpServletRequest req,int id) {
-		Rq rq=new Rq(req);
+		Rq rq=(Rq)req.getAttribute("rq");
 		
 		if(rq.isLogined()==false) {
 			return Ut.jsHistoryBack("로그인 후 이용해주세요.");
@@ -115,7 +115,7 @@ public class UsrArticleController {
 	@RequestMapping("/usr/article/doModify")
 	@ResponseBody
 	public ResultData doModify(HttpServletRequest req,int id,String title,String body) {
-		Rq rq=new Rq(req);
+		Rq rq=(Rq)req.getAttribute("rq");
 		
 		if(rq.isLogined()==false) {
 			return ResultData.from("F-A", "로그인 후 이용해주세요.");
