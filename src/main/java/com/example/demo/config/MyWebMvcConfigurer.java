@@ -23,6 +23,7 @@ public class MyWebMvcConfigurer implements WebMvcConfigurer {
 		.excludePathPatterns("/error");
 		
 		registry.addInterceptor(needLoginInterceptor)
+		.addPathPatterns("/usr/article/doAdd")
 		.addPathPatterns("/usr/article/write")
 		.addPathPatterns("/usr/article/doWrite")
 		.addPathPatterns("/usr/article/modify")
