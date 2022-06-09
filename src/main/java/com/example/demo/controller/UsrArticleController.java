@@ -30,26 +30,25 @@ public class UsrArticleController {
 		return "usr/article/write";
 	}
 	
-	@RequestMapping("/usr/article/doAdd")
+	@RequestMapping("/usr/article/doWrite")
 	@ResponseBody
-	public ResultData doAdd(HttpServletRequest req,String title,String body) {
+	public String doWrite(HttpServletRequest req,String title,String body) {
 		Rq rq=(Rq)req.getAttribute("rq");
 		
 		if(Ut.empty(title)) {
-			return ResultData.from("F-1", "title(을)를 입력해주세요.");
+			return Ut.jsHistoryBack("title(을)를 입력해주세요.");
 		}
 		
 		if(Ut.empty(body)) {
-			return ResultData.from("F-2", "body(을)를 입력해주세요.");
+			return Ut.jsHistoryBack("body(을)를 입력해주세요.");
 		}
 		
 		
 		ResultData<Integer> writeArticleRd=articleService.writeArticle(rq.getLoginedMemberId(),title, body);
 		int id=writeArticleRd.getData1();
 		
-		Article article=articleService.getForPrintArticle(rq.getLoginedMemberId(),id);
 		
-		return ResultData.newData(writeArticleRd,"article", article);
+		return Ut.jsReplace(Ut.f("%d번 글이 생성되었습니다.", id),Ut.f("../article/detail?id=%d", id));
 	}
 	
 
