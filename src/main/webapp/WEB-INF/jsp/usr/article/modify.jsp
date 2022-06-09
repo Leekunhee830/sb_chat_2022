@@ -8,7 +8,7 @@
   <div class="container mx-auto px-3">
   
     <form class="table-box-type-1" method="POST" action="../article/doModify">
-      <input tpye="hidden" name="id" value="${article.id}"/>
+      <input type="hidden" name="id" value="${article.id}"/>
       <table>
         <colgroup>
           <col width="200"/>
@@ -16,15 +16,17 @@
         <tbody>
           <tr>
             <th>번호</th>
-            <td>${article.id}</td>
+            <td>
+              <div class="badge badge-primary">${article.id}</div>
+            </td>
           </tr>
           <tr>
             <th>작성날짜</th>
-            <td>${article.regDate.substring(2,16)}</td>
+            <td>${article.regDateForPrint}</td>
           </tr>
           <tr>
             <th>수정날짜</th>
-            <td>${article.updateDate.substring(2,16)}</td>
+            <td>${article.updateDateForPrint}</td>
           </tr>
           <tr>
             <th>작성자</th>
@@ -33,20 +35,20 @@
           <tr>
             <th>제목</th>
             <td>
-              <input name="title" type="text" class="w-96" placeholder="제목" value="${article.title}"/>
+              <input name="title" type="text" class="w-96 input input-bordered" placeholder="제목" value="${article.title}"/>
             </td>
           </tr>
           <tr>
             <th>내용</th>
             <td>
-              <textarea  name="body" rows="10" class="w-full">${article.body}</textarea>
+              <textarea  name="body" rows="10" class="w-full textarea textarea-bordered">${article.body}</textarea>
             </td>
           </tr>
           <tr>
             <th>수정</th>
             <td>
-              <input type="submit" value="수정"/>
-              <button type="button" onclick="history.back();">뒤로가기</button>
+               <button type="submit" class="btn btn-primary">수정</button>
+              <button type="button" class="btn btn-outline btn-secondary" onclick="history.back();">뒤로가기</button>
             </td>
           </tr>
         </tbody>
@@ -54,10 +56,10 @@
     </form>
     
     <div class="btns">
-      <button class="btn-text-link" type="button" onclick="history.back();">뒤로가기</button>
-      <a class="btn-text-link" href="../article/modify?id=${article.id}">게시물 수정</a>
+      <button class="btn btn-link" type="button" onclick="history.back();">뒤로가기</button>
+      <a class="btn btn-link" href="../article/modify?id=${article.id}">게시물 수정</a>
       <c:if test="${article.extra__actorCanDelete}">
-        <a class="btn-text-link" onclick="if(confirm('정말 삭제하시겠습니까?')==false) return false;" href="../article/doDelete?id=${article.id}">게시물 삭제</a>
+        <a class="btn btn-link" onclick="if(confirm('정말 삭제하시겠습니까?')==false) return false;" href="../article/doDelete?id=${article.id}">게시물 삭제</a>
       </c:if>
     </div>
   </div>
