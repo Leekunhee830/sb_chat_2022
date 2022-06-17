@@ -17,4 +17,6 @@ mybatis:
 custom:
   logging:
     dir: log
-    level: debug 
+    level: debug
+  lolApi:
+    apiKey: RGAPI-061cea05-e6ea-4783-9415-257ce8f2cd7e

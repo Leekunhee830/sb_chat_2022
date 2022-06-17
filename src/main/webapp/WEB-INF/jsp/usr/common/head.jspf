@@ -21,7 +21,7 @@
 <link rel="stylesheet" href="/resource/common.css" />
 </head>
 <body>
-  <header>
+  <header class="bg-blue-400">
     <div class="flex container mx-auto h-20">
       <a href="#" class="flex items-center px-3">
         <span>로고</span>
@@ -30,6 +30,12 @@
       <div class="flex-grow"></div>
 
       <ul class="flex">
+        <li>
+          <form action="../home/doSearch" method="GET" class="flex items-center h-full px-3">
+            <input type="text" name="nickName" placeholder="소환사명 검색" class="input input-bordered input-info input-sm w-full max-w-xs " />   
+            <button type="submit" class="btn btn-sm ml-1">검색</button>
+          </form>
+        </li>
         <li>
           <a href="/" class="flex items-center h-full px-3 hover:underline">
             <span>홈</span>

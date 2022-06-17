@@ -42,3 +42,8 @@ html > body {
 body{
 	min-width: 800px;
 }
+
+html,body{
+	height:100%;
+}
+

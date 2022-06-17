@@ -57,10 +57,6 @@ public class Rq {
 			e.printStackTrace();
 		}
 	}
-	
-	public void println(String str) {
-		print(str+"\n");
-	}
 
 	public void login(Member member) {
 		session.setAttribute("loginedMemberId", member.getId());
