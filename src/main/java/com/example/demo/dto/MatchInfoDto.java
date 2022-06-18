@@ -11,6 +11,9 @@ import lombok.ToString;
 @ToString
 public class MatchInfoDto {
 	private String championName;
+	private int champLevel;
+	private String spell1;
+	private String spell2;
 	private int assists;
 	private int deaths;
 	private int kills;
@@ -22,5 +25,5 @@ public class MatchInfoDto {
 	private int item4;
 	private int item5;
 	private int item6;
-	private boolean win;
+	private String gameResult;
 }

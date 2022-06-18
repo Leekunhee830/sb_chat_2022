@@ -9,18 +9,22 @@ import java.net.URL;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.dto.LeagueInfoDto;
 import com.example.demo.dto.MatchInfoDto;
 import com.example.demo.dto.SummonerDto;
+import com.example.demo.repository.LOLApiRepository;
 
 
 
 @Service
 public class LoLApiService {
 
+	@Autowired
+	LOLApiRepository lolApiRepository;
 	@Value("${custom.lolApi.apiKey}")
 	private String API_KEY;
 	BufferedReader br=null;
@@ -115,6 +119,10 @@ public class LoLApiService {
 		MatchInfoDto[] matchInfoDtos=new MatchInfoDto[matchIds.length];
 		String result="";
 		int tempPuuidNum=-1;
+		String gameMode="";
+		String gameResult="";
+		String spell1="";
+		String spell2="";
 		for(int i=0;i<matchIds.length;i++) {
 			System.out.println("matchIds:::"+matchIds[i]);
 		}
@@ -142,27 +150,36 @@ public class LoLApiService {
 				}
 				
 				//내 경기 기록 가져오기
-				JSONObject matchInfoJ1=(JSONObject)k.get("info");
-			    String gameMode=matchInfoJ1.get("gameMode").toString();
-				JSONArray arr = (JSONArray) matchInfoJ1.get("participants");
-		        JSONObject matchInfoJ2 = (JSONObject)arr.get(tempPuuidNum);
-		        String championName=matchInfoJ2.get("championName").toString();
-		        int assists=Integer.parseInt(matchInfoJ2.get("assists").toString());
-		        int deaths=Integer.parseInt(matchInfoJ2.get("deaths").toString());
-		        int kiils=Integer.parseInt(matchInfoJ2.get("kills").toString());
-		        int item0 = Integer.parseInt(matchInfoJ2.get("item0").toString());
-				int item1 = Integer.parseInt(matchInfoJ2.get("item1").toString());
-				int item2 = Integer.parseInt(matchInfoJ2.get("item2").toString());
-				int item3 = Integer.parseInt(matchInfoJ2.get("item3").toString());
-				int item4 = Integer.parseInt(matchInfoJ2.get("item4").toString());
-				int item5 = Integer.parseInt(matchInfoJ2.get("item5").toString());
-				int item6 = Integer.parseInt(matchInfoJ2.get("item6").toString());
-		        boolean win=(boolean)matchInfoJ2.get("win");
+				JSONObject infoJO=(JSONObject)k.get("info");
+			    int queueId=Integer.parseInt(infoJO.get("queueId").toString());
+				JSONArray arr = (JSONArray) infoJO.get("participants");
+		        JSONObject participantJO = (JSONObject)arr.get(tempPuuidNum);
+		        String championName=participantJO.get("championName").toString();
+		        int champLevel=Integer.parseInt(participantJO.get("champLevel").toString());
+		        int summoner1Id=Integer.parseInt(participantJO.get("summoner1Id").toString());
+		        int summoner2Id=Integer.parseInt(participantJO.get("summoner2Id").toString());
+		        int assists=Integer.parseInt(participantJO.get("assists").toString());
+		        int deaths=Integer.parseInt(participantJO.get("deaths").toString());
+		        int kiils=Integer.parseInt(participantJO.get("kills").toString());
+		        int item0 = Integer.parseInt(participantJO.get("item0").toString());
+				int item1 = Integer.parseInt(participantJO.get("item1").toString());
+				int item2 = Integer.parseInt(participantJO.get("item2").toString());
+				int item3 = Integer.parseInt(participantJO.get("item3").toString());
+				int item4 = Integer.parseInt(participantJO.get("item4").toString());
+				int item5 = Integer.parseInt(participantJO.get("item5").toString());
+				int item6 = Integer.parseInt(participantJO.get("item6").toString());
+		        boolean win=(boolean)participantJO.get("win");
 				
-		        System.out.println("championName:::"+championName);
+		        //큐아이디 이용 게임모드가져오기
+		        gameMode=getGameModeByQueueId(queueId);
+		        //승리여부판단
+		        gameResult=getGameResultByWin(win);
+		        //스펠이름가져오기
+		        spell1= getSpell(summoner1Id);
+		        spell2= getSpell(summoner2Id);
 		        
-		        matchInfoDtos[i]=new MatchInfoDto(championName,assists,deaths,kiils,gameMode,item0
-						,item1,item2,item3,item4,item5,item6,win);
+		        matchInfoDtos[i]=new MatchInfoDto(championName,champLevel,spell1,spell2,assists,deaths,kiils,gameMode,item0
+						,item1,item2,item3,item4,item5,item6,gameResult);
 			}
 		}catch (Exception e) {
 			System.out.println(e.getMessage());
@@ -170,8 +187,7 @@ public class LoLApiService {
 
 		return matchInfoDtos;
 	}
-	
-	
+
 	private String getJsonbyURL(String urlstr) {
 		String result = "";
 		String line="";
@@ -224,5 +240,73 @@ public class LoLApiService {
 		return odds;
 	}
 	
-
+	//게임 모드
+	private String getGameModeByQueueId(int queueId) {
+		String gameMode="";
+		if(queueId==400 || queueId==430) {
+			gameMode="일반";
+		}
+		else if(queueId==420) {
+			gameMode="솔랭";
+		}
+		else if(queueId==440) {
+			gameMode="자랭";
+		}
+		else if(queueId==450) {
+			gameMode="무작위 총력전";
+		}
+		else if(queueId==700) {
+			gameMode="격전";
+		}
+		else if(queueId==800 || queueId==810 || queueId==820 || queueId==830 || queueId==840 || queueId==850) {
+			gameMode="AI";
+		}
+		else if(queueId==900) {
+			gameMode="우르프";
+		}
+		else if(queueId==920) {
+			gameMode="포로왕";
+		}
+		else if(queueId==1020) {
+			gameMode="단일";
+		}
+		else if(queueId==1300) {
+			gameMode="돌넥";
+		}
+		else if(queueId==1400) {
+			gameMode="궁주문서";
+		}
+		else if(queueId==2000 || queueId==2010 || queueId==2020) {
+			gameMode="튜토리얼";
+		}
+		else {
+			gameMode="오류";
+		}
+		
+		return gameMode;
+	}
+	
+	//승리여부
+	private String getGameResultByWin(boolean win) {
+		String result="";
+		if(win) {
+			result="승리";
+		}else {
+			result="패배";
+		}
+		
+		return result;
+	}
+	
+	//스펠이름가져오기
+	private String getSpell(int spellKey) {
+		String spellEnName="";
+		spellEnName=lolApiRepository.getSpellBySpellKey(spellKey);
+		
+		if(spellEnName.equals("")) {
+			spellEnName="오류";
+		}
+		
+		return spellEnName;
+	}
 }

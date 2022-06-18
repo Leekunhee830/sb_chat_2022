@@ -51,7 +51,7 @@ public class UsrHomeController {
 			fOdds=lolApiService.getOdds(flexLeagueInfo.getWins(),flexLeagueInfo.getLosses());
 		}
 		
-		//경기아이디
+		//최근 5경기아이디
 		String[] matchIds=lolApiService.getMatchId(temp.getPuuid());
 		
 		//경기상세정보

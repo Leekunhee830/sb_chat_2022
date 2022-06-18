@@ -87,3 +87,96 @@ nickname='사용자2',
 cellphoneNo='01022222222',
 email='user2@test.com';
 
+#롤스펠 테이블 생성
+CREATE TABLE lolspell(
+    id INT(10) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    spell CHAR(20) NOT NULL,
+    spellName CHAR(20) NOT NULL,
+    keyNum INT(10) NOT NULL
+);
+
+#롤 스펠 등록
+INSERT INTO lolspell
+SET spell='SummonerBarrier',
+spellName='방어막',
+keyNum=21;
+
+INSERT INTO lolspell
+SET spell='SummonerBoost',
+spellName='정화',
+keyNum=1;
+
+INSERT INTO lolspell
+SET spell='SummonerDot',
+spellName='점화',
+keyNum=14;
+
+INSERT INTO lolspell
+SET spell='SummonerExhaust',
+spellName='탈진',
+keyNum=3;
+
+INSERT INTO lolspell
+SET spell='SummonerFlash',
+spellName='점멸',
+keyNum=4;
+
+INSERT INTO lolspell
+SET spell='SummonerBarrier',
+spellName='방어막',
+keyNum=21;
+
+INSERT INTO lolspell
+SET spell='SummonerHaste',
+spellName='유체화',
+keyNum=6;
+
+INSERT INTO lolspell
+SET spell='SummonerHeal',
+spellName='회복',
+keyNum=7;
+
+INSERT INTO lolspell
+SET spell='SummonerMana',
+spellName='총명',
+keyNum=13;
+
+INSERT INTO lolspell
+SET spell='SummonerPoroRecall',
+spellName='왕을 향해',
+keyNum=30;
+
+INSERT INTO lolspell
+SET spell='SummonerPoroThrow',
+spellName='포로 던지기',
+keyNum=31;
+
+INSERT INTO lolspell
+SET spell='SummonerSmite',
+spellName='강타',
+keyNum=11;
+
+INSERT INTO lolspell
+SET spell='SummonerSnowURFSnowball_Mark',
+spellName='표식',
+keyNum=39;
+
+INSERT INTO lolspell
+SET spell='SummonerSnowball',
+spellName='표식',
+keyNum=32;
+
+INSERT INTO lolspell
+SET spell='SummonerTeleport',
+spellName='순간이동',
+keyNum=12;
+
+INSERT INTO lolspell
+SET spell='Summoner_UltBookPlaceholder',
+spellName='게임 시작 후 결정',
+keyNum=54;
+
+INSERT INTO lolspell
+SET spell='Summoner_UltBookSmitePlaceholder',
+spellName='TBD 및 공격,강타',
+keyNum=55;

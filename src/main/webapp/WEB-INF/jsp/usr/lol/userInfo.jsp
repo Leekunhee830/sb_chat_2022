@@ -25,7 +25,7 @@
 
   <div class="flex">
     <!-- 왼쪽박스 -->
-    <div class="w-80">
+    <div class="w-full">
     
       <div class="w-96 h-36 bg-gray-200 rounded-xl px-1.5">
         <div class="text-center mt-2.5">솔로랭크</div>
@@ -80,7 +80,50 @@
 
 
     <!-- 오른쪽박스 -->
-    <div></div>
+    <div class="w-full">
+      <c:choose>
+        <c:when test="${not empty matchInfoDtos}">
+          <c:forEach var="matchInfoDto" items="${matchInfoDtos}">
+            <!-- 매치 정보시작 -->
+            <div class="mt-2.5 w-full h-24 flex px-2 rounded-xl ${matchInfoDto.gameResult}">
+              <!-- 승패,게임모드 -->
+              <div class="w-24 h-full table">
+                <div class="table-cell align-middle">
+                  <div class="text-center font-extrabold">${matchInfoDto.gameMode }</div>
+                  <hr class="my-2 text-gray-600">
+                  <div class="text-center font-extrabold">${matchInfoDto.gameResult }</div>
+                </div>
+              </div>
+              
+              <!-- 챔프이미지,레벨 -->
+              <div class="ml-2 relative">
+                <div class="w-16 h-16 mt-3">
+                  <img class="rounded-full" src="https://ddragon.leagueoflegends.com/cdn/12.11.1/img/champion/${matchInfoDto.championName}.png" alt="챔프이미지" />              
+                </div>
+                <div class="badge absolute top-14 left-10">${matchInfoDto.champLevel}</div>
+              </div>
+              
+              <!-- 룬,스펠 -->
+              <div class="ml-2">
+                <div>dd</div>
+                <div class="flex">
+                  <div class="w-6 h-6">
+                    <img src="https://ddragon.leagueoflegends.com/cdn/10.6.1/img/spell/${matchInfoDto.spell1}.png" alt="스펠이미지1" />
+                  </div>
+                  <div class="w-6 h-6">
+                    <img src="https://ddragon.leagueoflegends.com/cdn/10.6.1/img/spell/${matchInfoDto.spell2}.png" alt="스펠이미지2" />
+                  </div>
+                </div>
+              </div>
+              
+            </div>
+          </c:forEach>
+        </c:when>
+        <c:otherwise>
+          <div>경기 기록이 없습니다.</div>
+        </c:otherwise>
+      </c:choose>
+    </div>
   </div>
 </div>
 
@@ -107,5 +150,14 @@
   </div>
 </div>
 
+<script type="text/javascript">
+$(document).ready(function() {
+	 $('.승리').css('backgroundColor', '#a6e3e9');
+	 $('.패배').css('backgroundColor', '#f0bcc6');
+});
+	//element.getElementsByClassName('.승리').style.backgroundColor = 'green';
+	//element.getElementsByClassName('.패배').style.backgroundColor = 'red';
+</script>
 
+<script type="text/javascript" src="/resource/userInfoJs.js" defer="defer"></script>
 <%@ include file="../common/foot.jspf"%>
