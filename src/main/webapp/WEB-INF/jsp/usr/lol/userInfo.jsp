@@ -104,14 +104,21 @@
               </div>
               
               <!-- 룬,스펠 -->
-              <div class="ml-2">
-                <div>dd</div>
+              <div class="ml-2 mt-3">
                 <div class="flex">
-                  <div class="w-6 h-6">
-                    <img src="https://ddragon.leagueoflegends.com/cdn/10.6.1/img/spell/${matchInfoDto.spell1}.png" alt="스펠이미지1" />
+                  <div class="w-8 h-8 bg-black rounded-full">
+                    <img src="https://ddragon.leagueoflegends.com/cdn/img/${matchInfoDto.perkIcon1}" alt="룬이미지1" />
                   </div>
-                  <div class="w-6 h-6">
-                    <img src="https://ddragon.leagueoflegends.com/cdn/10.6.1/img/spell/${matchInfoDto.spell2}.png" alt="스펠이미지2" />
+                  <div class="w-8 h-8 rounded-full">
+                    <img src="https://ddragon.leagueoflegends.com/cdn/img/${matchInfoDto.perkIcon2}" alt="룬이미지2" />
+                  </div>
+                </div>
+                <div class="flex">
+                  <div class="w-8 h-8">
+                    <img src="https://ddragon.leagueoflegends.com/cdn/12.11.1/img/spell/${matchInfoDto.spell1}.png" alt="스펠이미지1" />
+                  </div>
+                  <div class="w-8 h-8">
+                    <img src="https://ddragon.leagueoflegends.com/cdn/12.11.1/img/spell/${matchInfoDto.spell2}.png" alt="스펠이미지2" />
                   </div>
                 </div>
               </div>

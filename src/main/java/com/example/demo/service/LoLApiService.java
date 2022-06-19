@@ -5,6 +5,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Iterator;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -40,10 +41,8 @@ public class LoLApiService {
 			
 			JSONParser jsonParser = new JSONParser();
 			JSONObject summonerJo = (JSONObject) jsonParser.parse(result);
-
-			System.out.println("json::" + summonerJo);
+			
 			int profileIconId = Integer.parseInt(summonerJo.get("profileIconId").toString());
-			System.out.println("profileIconId::::" + profileIconId);
 			String name = summonerJo.get("name").toString();
 			String puuid = summonerJo.get("puuid").toString();
 			long summonerLevel = (long) summonerJo.get("summonerLevel");
@@ -169,7 +168,24 @@ public class LoLApiService {
 				int item5 = Integer.parseInt(participantJO.get("item5").toString());
 				int item6 = Integer.parseInt(participantJO.get("item6").toString());
 		        boolean win=(boolean)participantJO.get("win");
+		        
+		        //룬정보 가져오기
+		        JSONObject perksJO=(JSONObject)participantJO.get("perks");
+		        JSONArray stylesArrJO = (JSONArray) perksJO.get("styles");
+		        JSONObject styles1=(JSONObject)stylesArrJO.get(0);
+		        JSONArray selectionsArrJO = (JSONArray)styles1.get("selections");
+		        JSONObject selection1=(JSONObject)selectionsArrJO.get(0);
+		        int perk1ID=Integer.parseInt(styles1.get("style").toString());
+		        int perk1_subID=Integer.parseInt(selection1.get("perk").toString());
+		     
+		        JSONObject styles2=(JSONObject)stylesArrJO.get(1);
+		        int perk2ID=Integer.parseInt(styles2.get("style").toString());
 				
+		        //룬아이콘 가져오기
+		        String perkIcon1=getPerkIconByperkId(perk1ID,perk1_subID);
+		        String perkIcon2=getPerkIconByperkId(perk2ID);
+		        
+		        
 		        //큐아이디 이용 게임모드가져오기
 		        gameMode=getGameModeByQueueId(queueId);
 		        //승리여부판단
@@ -178,8 +194,8 @@ public class LoLApiService {
 		        spell1= getSpell(summoner1Id);
 		        spell2= getSpell(summoner2Id);
 		        
-		        matchInfoDtos[i]=new MatchInfoDto(championName,champLevel,spell1,spell2,assists,deaths,kiils,gameMode,item0
-						,item1,item2,item3,item4,item5,item6,gameResult);
+		        matchInfoDtos[i]=new MatchInfoDto(championName,champLevel,spell1,spell2,assists,deaths,kiils,gameMode,
+		        		perkIcon1,perkIcon2,item0,item1,item2,item3,item4,item5,item6,gameResult);
 			}
 		}catch (Exception e) {
 			System.out.println(e.getMessage());
@@ -187,6 +203,7 @@ public class LoLApiService {
 
 		return matchInfoDtos;
 	}
+
 
 	private String getJsonbyURL(String urlstr) {
 		String result = "";
@@ -309,4 +326,68 @@ public class LoLApiService {
 		
 		return spellEnName;
 	}
+	
+	//룬이름 가져오기
+	private String getPerkIconByperkId(int userPerkId) {
+		String urlstr = "https://ddragon.leagueoflegends.com/cdn/12.11.1/data/ko_KR/runesReforged.json";
+		String perkicon="";
+		try {
+			String result=getJsonbyURL(urlstr);
+			JSONParser jsonParser = new JSONParser();
+			JSONArray perkArrJO = (JSONArray) jsonParser.parse(result);
+			for(int i=0;i<perkArrJO.size();i++) {
+				JSONObject perk=(JSONObject)perkArrJO.get(i);
+				int perkId=Integer.parseInt(perk.get("id").toString());
+				if(perkId==userPerkId) {
+					perkicon=perk.get("icon").toString();
+					return perkicon;
+				}else {
+					perkicon="오류";
+				}
+			}
+			
+		}catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+		return perkicon;
+	}
+	
+	//서브룬이름 가져오기
+		private String getPerkIconByperkId(int userPerkId,int userSubPerkId) {
+			String urlstr = "https://ddragon.leagueoflegends.com/cdn/12.11.1/data/ko_KR/runesReforged.json";
+			String perkIcon="";
+			try {
+				String result=getJsonbyURL(urlstr);
+				JSONParser jsonParser = new JSONParser();
+				JSONArray perkArrJO = (JSONArray) jsonParser.parse(result);
+				for(int i=0;i<perkArrJO.size();i++) {
+					JSONObject perk=(JSONObject)perkArrJO.get(i);
+					int perkId=Integer.parseInt(perk.get("id").toString());
+					if(perkId==userPerkId) {
+						JSONArray slotsArr=(JSONArray)perk.get("slots");
+						for(int j=0;j<slotsArr.size();j++) {
+							JSONObject slot=(JSONObject)slotsArr.get(j);
+							JSONArray rune= (JSONArray)slot.get("runes");
+							for(int q=0;q<rune.size();q++) {
+								JSONObject runeJO=(JSONObject)rune.get(q);
+								int runeId=Integer.parseInt(runeJO.get("id").toString());
+								if(runeId==userSubPerkId) {
+									perkIcon=runeJO.get("icon").toString();
+									return perkIcon;
+								}else {
+									perkIcon="오류";
+								}
+									
+							}
+						}
+					}else {
+						perkIcon="오류";
+					}
+				}
+				
+			}catch (Exception e) {
+				System.out.println(e.getMessage());
+			}
+			return perkIcon;
+		}
 }

@@ -18,6 +18,8 @@ public class MatchInfoDto {
 	private int deaths;
 	private int kills;
 	private String gameMode;
+	private String perkIcon1;
+	private String perkIcon2;
 	private int item0;
 	private int item1;
 	private int item2;
