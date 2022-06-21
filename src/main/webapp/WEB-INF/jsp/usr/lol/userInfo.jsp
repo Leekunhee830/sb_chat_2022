@@ -3,7 +3,7 @@
 
 <c:set var="pageTitle" value="소환사 정보" />
 <%@ include file="../common/head.jspf"%>
-
+<link rel="stylesheet" href="/resource/css/userInfo.css" />
 
 <div class="container mx-auto px-44 mt-14">
 
@@ -25,7 +25,7 @@
 
   <div class="flex">
     <!-- 왼쪽박스 -->
-    <div class="w-full">
+    <div class="w-600">
     
       <div class="w-96 h-36 bg-gray-200 rounded-xl px-1.5">
         <div class="text-center mt-2.5">솔로랭크</div>
@@ -104,21 +104,33 @@
               </div>
               
               <!-- 룬,스펠 -->
-              <div class="ml-2 mt-3">
-                <div class="flex">
-                  <div class="w-8 h-8 bg-black rounded-full">
+              <div class="ml-3 mt-4">
+                <div class="flex mb-1">
+                  <div class="w-7 h-7 mr-1 bg-black rounded-full">
                     <img src="https://ddragon.leagueoflegends.com/cdn/img/${matchInfoDto.perkIcon1}" alt="룬이미지1" />
                   </div>
-                  <div class="w-8 h-8 rounded-full">
+                  <div class="w-7 h-7 rounded-full">
                     <img src="https://ddragon.leagueoflegends.com/cdn/img/${matchInfoDto.perkIcon2}" alt="룬이미지2" />
                   </div>
                 </div>
                 <div class="flex">
-                  <div class="w-8 h-8">
+                  <div class="w-7 h-7 mr-1">
                     <img src="https://ddragon.leagueoflegends.com/cdn/12.11.1/img/spell/${matchInfoDto.spell1}.png" alt="스펠이미지1" />
                   </div>
-                  <div class="w-8 h-8">
+                  <div class="w-7 h-7">
                     <img src="https://ddragon.leagueoflegends.com/cdn/12.11.1/img/spell/${matchInfoDto.spell2}.png" alt="스펠이미지2" />
+                  </div>
+                </div>
+              </div>
+              
+              <!-- 킬,데스 -->
+              <div class="mt-6 ml-16 mr-14 w-52">
+                <div class="font-extrabold text-xl ml-8">
+                  ${matchInfoDto.kills}&nbsp;/&nbsp;${matchInfoDto.deaths}&nbsp;/&nbsp;${matchInfoDto.assists}
+                </div>
+                <div>
+                  <div class="font-extrabold">
+                    <span class="mr-5">평점 ${matchInfoDto.kda}</span>&nbsp;<span class="text-red-600">킬관여 ${matchInfoDto.kdaPercent}%</span>
                   </div>
                 </div>
               </div>
@@ -152,7 +164,7 @@
   <div>
     <c:forEach var="matchInfoDto" items="${matchInfoDtos}">
       ${matchInfoDto}
-      
+      <br />
     </c:forEach>
   </div>
 </div>

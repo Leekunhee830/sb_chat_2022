@@ -122,6 +122,9 @@ public class LoLApiService {
 		String gameResult="";
 		String spell1="";
 		String spell2="";
+		String kda="";
+		int totalTeamKills=0;
+		String kdaPercent="";
 		for(int i=0;i<matchIds.length;i++) {
 			System.out.println("matchIds:::"+matchIds[i]);
 		}
@@ -159,7 +162,7 @@ public class LoLApiService {
 		        int summoner2Id=Integer.parseInt(participantJO.get("summoner2Id").toString());
 		        int assists=Integer.parseInt(participantJO.get("assists").toString());
 		        int deaths=Integer.parseInt(participantJO.get("deaths").toString());
-		        int kiils=Integer.parseInt(participantJO.get("kills").toString());
+		        int kills=Integer.parseInt(participantJO.get("kills").toString());
 		        int item0 = Integer.parseInt(participantJO.get("item0").toString());
 				int item1 = Integer.parseInt(participantJO.get("item1").toString());
 				int item2 = Integer.parseInt(participantJO.get("item2").toString());
@@ -194,7 +197,16 @@ public class LoLApiService {
 		        spell1= getSpell(summoner1Id);
 		        spell2= getSpell(summoner2Id);
 		        
-		        matchInfoDtos[i]=new MatchInfoDto(championName,champLevel,spell1,spell2,assists,deaths,kiils,gameMode,
+		        //kda가져오기
+		        kda=getKDA(kills, deaths, assists);
+		        
+		        //경기 팀 총 킬수 가져오기
+		        totalTeamKills=getTotalteamKills(arr,tempPuuidNum);
+		        
+		        //킬관여율 계산
+		        kdaPercent=getKdaPercent(kills,assists,totalTeamKills);
+		        
+		        matchInfoDtos[i]=new MatchInfoDto(championName,champLevel,spell1,spell2,assists,deaths,kills,kda,kdaPercent,gameMode,
 		        		perkIcon1,perkIcon2,item0,item1,item2,item3,item4,item5,item6,gameResult);
 			}
 		}catch (Exception e) {
@@ -203,6 +215,9 @@ public class LoLApiService {
 
 		return matchInfoDtos;
 	}
+
+
+
 
 
 	private String getJsonbyURL(String urlstr) {
@@ -256,6 +271,45 @@ public class LoLApiService {
 		String odds=String.format("%.2f", num); 
 		return odds;
 	}
+	
+	//경기 평점
+	private String getKDA(int kills,int deaths,int assists) {
+		String KDA="";
+		if(deaths==0) {
+			KDA="Perfect";
+		}else {
+			double num=((double)kills+(double)assists)/(double)deaths;
+			KDA=String.format("%.2f", num);			
+		}
+		return KDA;
+	}
+	
+	//경기 팀 총 킬수 가져오기
+	private int getTotalteamKills(JSONArray arr,int point) {
+		int count=0;
+		int totalKills=0;
+		if(point>4) {
+			count=5;
+		}
+		
+		for(int i=count;i<count+5;i++) {
+			int kills=0;
+			JSONObject participantJO = (JSONObject)arr.get(i);
+			kills=Integer.parseInt(participantJO.get("kills").toString());
+			totalKills+=kills;
+		}
+		return totalKills;
+	}
+	
+	//킬 관여율 계산
+	private String getKdaPercent(int kills, int assists, int totalTeamKills) {
+		String re="";
+		double num=((double)(kills+assists)/(double)totalTeamKills)*(double)100;
+		re=String.format("%.0f", num);
+		
+		return re;
+	}
+
 	
 	//게임 모드
 	private String getGameModeByQueueId(int queueId) {
