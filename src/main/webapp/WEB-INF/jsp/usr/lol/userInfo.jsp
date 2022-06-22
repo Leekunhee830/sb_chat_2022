@@ -124,7 +124,7 @@
               </div>
               
               <!-- 킬,데스 -->
-              <div class="mt-6 ml-16 mr-14 w-52">
+              <div class="mt-6 ml-16 mr-8 w-52">
                 <div class="font-extrabold text-xl ml-8">
                   ${matchInfoDto.kills}&nbsp;/&nbsp;${matchInfoDto.deaths}&nbsp;/&nbsp;${matchInfoDto.assists}
                 </div>
@@ -133,6 +133,94 @@
                     <span class="mr-5">평점 ${matchInfoDto.kda}</span>&nbsp;<span class="text-red-600">킬관여 ${matchInfoDto.kdaPercent}%</span>
                   </div>
                 </div>
+              </div>
+              
+              <!-- 아이템 창 -->
+              <div class="flex mt-6">
+                <!-- 0번째 아이템 -->
+                <div class="w-7 h-7">
+                  <c:choose>
+                    <c:when test="${matchInfoDto.item0 eq 0}">
+                      <img src="/resource/img/0.png" alt="아이템이미지" />
+                    </c:when>
+                    <c:otherwise>
+                      <img src="https://ddragon.leagueoflegends.com/cdn/12.11.1/img/item/${matchInfoDto.item0}.png" alt="아이템이미지" />
+                    </c:otherwise>
+                  </c:choose>
+                </div>
+                
+                <!-- 1번째 아이템 -->
+                <div class="w-7 h-7">
+                  <c:choose>
+                    <c:when test="${matchInfoDto.item1 eq 0}">
+                      <img src="/resource/img/0.png" alt="아이템이미지" />
+                    </c:when>
+                    <c:otherwise>
+                      <img src="https://ddragon.leagueoflegends.com/cdn/12.11.1/img/item/${matchInfoDto.item1}.png" alt="아이템이미지" />
+                    </c:otherwise>
+                  </c:choose>
+                </div>
+                
+                <!-- 2번째 아이템 -->
+                <div class="w-7 h-7">
+                  <c:choose>
+                    <c:when test="${matchInfoDto.item2 eq 0}">
+                      <img src="/resource/img/0.png" alt="아이템이미지" />
+                    </c:when>
+                    <c:otherwise>
+                      <img src="https://ddragon.leagueoflegends.com/cdn/12.11.1/img/item/${matchInfoDto.item2}.png" alt="아이템이미지" />
+                    </c:otherwise>
+                  </c:choose>
+                </div>
+                
+                <!-- 3번째 아이템 -->
+                <div class="w-7 h-7">
+                  <c:choose>
+                    <c:when test="${matchInfoDto.item3 eq 0}">
+                      <img src="/resource/img/0.png" alt="아이템이미지" />
+                    </c:when>
+                    <c:otherwise>
+                      <img src="https://ddragon.leagueoflegends.com/cdn/12.11.1/img/item/${matchInfoDto.item3}.png" alt="아이템이미지" />
+                    </c:otherwise>
+                  </c:choose>
+                </div>
+                
+                <!-- 4번째 아이템 -->
+                <div class="w-7 h-7">
+                  <c:choose>
+                    <c:when test="${matchInfoDto.item4 eq 0}">
+                      <img src="/resource/img/0.png" alt="아이템이미지" />
+                    </c:when>
+                    <c:otherwise>
+                      <img src="https://ddragon.leagueoflegends.com/cdn/12.11.1/img/item/${matchInfoDto.item4}.png" alt="아이템이미지" />
+                    </c:otherwise>
+                  </c:choose>
+                </div>
+                
+                <!-- 5번째 아이템 -->
+                <div class="w-7 h-7">
+                  <c:choose>
+                    <c:when test="${matchInfoDto.item5 eq 0}">
+                      <img src="/resource/img/0.png" alt="아이템이미지" />
+                    </c:when>
+                    <c:otherwise>
+                      <img src="https://ddragon.leagueoflegends.com/cdn/12.11.1/img/item/${matchInfoDto.item5}.png" alt="아이템이미지" />
+                    </c:otherwise>
+                  </c:choose>
+                </div>
+                
+                <!-- 6번째 아이템 -->
+                <div class="w-7 h-7">
+                  <c:choose>
+                    <c:when test="${matchInfoDto.item6 eq 0}">
+                      <img src="/resource/img/0.png" alt="아이템이미지" />
+                    </c:when>
+                    <c:otherwise>
+                      <img src="https://ddragon.leagueoflegends.com/cdn/12.11.1/img/item/${matchInfoDto.item6}.png" alt="아이템이미지" />
+                    </c:otherwise>
+                  </c:choose>
+                </div>
+                
               </div>
               
             </div>
